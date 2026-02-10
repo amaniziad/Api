@@ -34,43 +34,41 @@
 
     <build>
         <plugins>
-            <!-- Jacoco -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.14</version>
                 <executions>
+
+                    <!-- Attache l’agent -->
                     <execution>
                         <id>prepare-agent</id>
-                        <goals><goal>prepare-agent</goal></goals>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
                     </execution>
+
+                    <!-- Génère HTML + XML -->
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
-                        <goals><goal>report</goal></goals>
-                    </execution>
-                    <execution>
-                        <id>check</id>
                         <phase>verify</phase>
-                        <goals><goal>check</goal></goals>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+                            <reports>
+                                <xml>true</xml>
+                                <html>true</html>
+                                <csv>false</csv>
+                            </reports>
+                        </configuration>
                     </execution>
-                </executions>
-            </plugin>
 
-            <!-- Surefire -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <includes>
-                        <include>**/RunCucumberTest.java</include>
-                    </includes>
-                </configuration>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
     <distributionManagement>
         <repository>
             <id>myMavenRepo</id>
