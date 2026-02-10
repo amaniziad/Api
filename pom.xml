@@ -85,5 +85,20 @@
         </plugins>
     </build>
 
-
+        ...
+        <repositories>
+            <repository>
+                <id>myMavenRepo</id>
+                <url>https://mymavenrepo.com/repo/u5RVZ9e4NXvPPZUV33hJ/</url>
+            </repository>
+        </repositories>
+        ...
+    ...
+    <distributionManagement>
+        <repository>
+            <id>myMavenRepo.write</id>
+            <url>${myMavenRepo.write.url}</url>
+        </repository>
+    </distributionManagement>
+    ...
 </project>
