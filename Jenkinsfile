@@ -10,7 +10,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Exécution des tests unitaires...'
+                echo 'Exécution de test'
                 bat 'mvn test'
                 junit 'target/surefire-reports/*.xml'
                 cucumber reportTitle: 'API Report',
