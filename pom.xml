@@ -5,60 +5,45 @@
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.example</groupId>
     <artifactId>api-main</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
-
-        <!-- Cucumber Java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>6.0.0</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Cucumber JUnit -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>6.0.0</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.14</version>
-
-
                 <executions>
-
-
-                    <!-- Attach JaCoCo agent before tests -->
                     <execution>
                         <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-
-
-                    <!-- Generate coverage report -->
                     <execution>
                         <id>report</id>
                         <phase>test</phase>
@@ -66,9 +51,6 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-
-
-                    <!-- Enforce coverage -->
                     <execution>
                         <id>check</id>
                         <phase>verify</phase>
@@ -76,22 +58,22 @@
                             <goal>check</goal>
                         </goals>
                     </execution>
-
-
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <includes>
+                        <include>**/RunCucumberTest.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
-
-
-<!--        <repositories>-->
-<!--            <repository>-->
-<!--                <id>myMavenRepo</id>-->
-<!--                <url>https://mymavenrepo.com/repo/u5RVZ9e4NXvPPZUV33hJ/</url>-->
-<!--            </repository>-->
-<!--        </repositories>-->
 
     <distributionManagement>
         <repository>
