@@ -10,21 +10,28 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Exécution de test'
+                echo 'Exécution des tests...'
                 bat 'mvn test'
                 junit 'target/surefire-reports/*.xml'
-                cucumber reportTitle: 'API Report',
-                  fileIncludePattern: 'target/example-report.json'
-
-            recordCoverage(tools: [[parser: 'JACOCO']],
-                    id: 'jacoco', name: 'JaCoCo Coverage',
-                    sourceCodeRetention: 'EVERY_BUILD',
-                    qualityGates: [
-                            [threshold: 60.0, metric: 'LINE', baseline: 'PROJECT', unstable: true],
-                            [threshold: 60.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]])
-
             }
         }
+
+        stage('Build') {
+            steps {
+                echo 'Build du projet et génération du JAR...'
+                bat 'mvn clean package'  // génère le JAR dans target/
+                archiveArtifacts artifacts: 'target/*.jar'  // archive le JAR
+            }
+        }
+
+
+                stage('deploy') {
+                    steps {
+
+                        bat 'mvn deploy'
+
+                    }
+                }
 
     }
 }
